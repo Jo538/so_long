@@ -284,7 +284,7 @@ int mlx_destroy_display(void *mlx_ptr);
 ```
 Closes the X11 connection. Call this last, after destroying all windows and images.
 
-Then call `free(mlx)` yourself — `mlx_destroy_display` does NOT free the pointer. This is because `mlx_init` internally calls `malloc` to allocate a `t_xvar` struct and returns it to you. `mlx_destroy_display` only closes the display connection inside that struct; the struct itself is your responsibility to free.
+⚠️ **Then call `free(mlx)` yourself — `mlx_destroy_display` does NOT free the pointer. This is because `mlx_init` internally calls `malloc` to allocate a `t_xvar` struct and returns it to you. `mlx_destroy_display` only closes the display connection inside that struct; the struct itself is your responsibility to free.**
 
 ```c
 mlx_destroy_display(mlx);
@@ -434,7 +434,7 @@ Your computer has two kinds of storage that are important here:
 - **Disk** — permanent storage. Files live here when the computer is off. Slow to access.
 - **RAM** — temporary storage. Your program lives here while it is running. Very fast to access.
 
-When your program runs, it can only work with data that is in RAM. A file sitting on disk is invisible to it until it is explicitly read and copied into RAM. This is what "loading" means.
+⚠️ **When your program runs, it can only work with data that is in RAM. A file sitting on disk is invisible to it until it is explicitly read and copied into RAM. This is what "loading" means.**
 
 When you call `mlx_xpm_file_to_image`, here is what happens step by step:
 
@@ -534,7 +534,7 @@ Same as above but loads from an XPM already in memory (as a `char **` array), in
 ```c
 int mlx_destroy_image(void *mlx_ptr, void *img_ptr);
 ```
-Frees an image. Call this for every image you loaded when cleaning up.
+⚠️ **Frees an image. Call this for every image you loaded when cleaning up.**
 
 ```c
 mlx_destroy_image(mlx, sprite);
@@ -563,11 +563,11 @@ An **event** is "something happened" — a key was pressed, the mouse moved, the
 
 ### What is a hook?
 
-A **hook** is a function you write and *register* in advance, saying:
+⚠️ ⚠️ **A hook is a function you write and *register* in advance, saying:**
 
 > "When event X happens, call *my* function."
 
-MiniLibX then calls your function automatically at the right moment. You never call it yourself.
+**MiniLibX then calls your function automatically at the right moment. You never call it yourself.**
 
 Think of it like leaving your phone number with a restaurant:
 - You don't sit on hold listening
@@ -602,13 +602,70 @@ int mlx_hook(void *win_ptr, int event, int mask, int (*func)(), void *param);
 ```
 The most powerful and general hook. Lets you catch **any** X11 event by specifying its event code.
 
-Key event codes you'll use in so_long:
+### `event` vs `mask` — what is the difference?
 
-| Event | Code | Triggered when |
+They look similar but operate at **different layers**:
+
+```
+Your Program
+     │
+     │  ← mask: tells the X SERVER which categories to send you
+     │
+  X Server
+     │
+     │  ← event: tells MINILIBX which specific type triggers your callback
+     │
+  Your callback
+```
+
+- **`mask`** is a lower-level filter sent to the X11 server itself. It is you saying: *"Hey OS, I want to receive this category of events at all."* Without it, the X server might not even forward those events to your program.
+- **`event`** is MiniLibX's own filter on top. It says: *"Out of everything I receive, only trigger my callback for this specific event type."*
+
+In X11 theory, you need both. In MiniLibX on Linux, the mask is largely ignored internally — so the event code is what actually drives your callbacks. The conventional values (`1L<<0` for key events, `0` for `DestroyNotify`) are placeholders you will see in every so_long project, even though they have no real effect.
+
+---
+
+#### All X11 event codes
+
+| Event name | Code | Triggered when |
 |---|---|---|
 | `KeyPress` | 2 | A key is pressed |
 | `KeyRelease` | 3 | A key is released |
-| `DestroyNotify` | 17 | The window X is clicked |
+| `ButtonPress` | 4 | A mouse button is pressed |
+| `ButtonRelease` | 5 | A mouse button is released |
+| `MotionNotify` | 6 | The mouse cursor moves inside the window |
+| `EnterNotify` | 7 | The mouse cursor enters the window |
+| `LeaveNotify` | 8 | The mouse cursor leaves the window |
+| `FocusIn` | 9 | The window gains keyboard focus |
+| `FocusOut` | 10 | The window loses keyboard focus |
+| `KeymapNotify` | 11 | Keyboard state is reported (rare) |
+| `Expose` | 12 | A part of the window needs to be redrawn |
+| `GraphicsExpose` | 13 | A copy operation was partially obstructed |
+| `NoExpose` | 14 | A copy operation completed without obstruction |
+| `VisibilityNotify` | 15 | The window's visibility state changed |
+| `CreateNotify` | 16 | A child window was created |
+| `DestroyNotify` | 17 | The window was destroyed (X button clicked) |
+| `UnmapNotify` | 18 | The window was hidden/unmapped |
+| `MapNotify` | 19 | The window became visible/mapped |
+| `MapRequest` | 20 | A child window asked to be mapped |
+| `ReparentNotify` | 21 | The window was moved to a new parent |
+| `ConfigureNotify` | 22 | The window was moved or resized |
+| `ConfigureRequest` | 23 | A child window asked to be resized |
+| `GravityNotify` | 24 | The window moved due to its parent resizing |
+| `ResizeRequest` | 25 | Something requested a resize |
+| `CirculateNotify` | 26 | The window's stacking order changed |
+| `CirculateRequest` | 27 | A window asked to change stacking order |
+| `PropertyNotify` | 28 | A window property was changed |
+| `SelectionClear` | 29 | The window lost ownership of a selection |
+| `SelectionRequest` | 30 | Another client wants the window's selection |
+| `SelectionNotify` | 31 | A selection request was answered |
+| `ColormapNotify` | 32 | The colormap was changed or installed |
+| `ClientMessage` | 33 | A custom message was sent from another client |
+| `MappingNotify` | 34 | The keyboard or pointer mapping changed |
+
+> For so_long you will only ever use **2** (KeyPress) and **17** (DestroyNotify).
+
+---
 
 ### What is a mask? What does `1L<<0` mean?
 
@@ -630,7 +687,36 @@ You can combine them with `|` to listen to multiple event types at once:
 
 Think of it as a checklist where each bit is one checkbox.
 
-In practice on Linux with MiniLibX, this mask is often ignored internally — the conventional values to use are `1L<<0` for key events and `0` for `DestroyNotify`. You will see these values in every so_long project.
+#### All X11 event masks
+
+| Mask name | Value | Enables reception of |
+|---|---|---|
+| `NoEventMask` | `0` | No events |
+| `KeyPressMask` | `1L<<0` | `KeyPress` |
+| `KeyReleaseMask` | `1L<<1` | `KeyRelease` |
+| `ButtonPressMask` | `1L<<2` | `ButtonPress` |
+| `ButtonReleaseMask` | `1L<<3` | `ButtonRelease` |
+| `EnterWindowMask` | `1L<<4` | `EnterNotify` |
+| `LeaveWindowMask` | `1L<<5` | `LeaveNotify` |
+| `PointerMotionMask` | `1L<<6` | `MotionNotify` (all mouse moves) |
+| `PointerMotionHintMask` | `1L<<7` | `MotionNotify` (throttled) |
+| `Button1MotionMask` | `1L<<8` | `MotionNotify` while button 1 held |
+| `Button2MotionMask` | `1L<<9` | `MotionNotify` while button 2 held |
+| `Button3MotionMask` | `1L<<10` | `MotionNotify` while button 3 held |
+| `Button4MotionMask` | `1L<<11` | `MotionNotify` while button 4 held |
+| `Button5MotionMask` | `1L<<12` | `MotionNotify` while button 5 held |
+| `ButtonMotionMask` | `1L<<13` | `MotionNotify` while any button held |
+| `KeymapStateMask` | `1L<<14` | `KeymapNotify` |
+| `ExposureMask` | `1L<<15` | `Expose` |
+| `VisibilityChangeMask` | `1L<<16` | `VisibilityNotify` |
+| `StructureNotifyMask` | `1L<<17` | `ConfigureNotify`, `DestroyNotify`, `MapNotify`, `UnmapNotify`, etc. |
+| `ResizeRedirectMask` | `1L<<18` | `ResizeRequest` |
+| `SubstructureNotifyMask` | `1L<<19` | Structure events on child windows |
+| `SubstructureRedirectMask` | `1L<<20` | Redirect child window requests to you |
+| `FocusChangeMask` | `1L<<21` | `FocusIn`, `FocusOut` |
+| `PropertyChangeMask` | `1L<<22` | `PropertyNotify` |
+| `ColormapChangeMask` | `1L<<23` | `ColormapNotify` |
+| `OwnerGrabButtonMask` | `1L<<24` | Modifier-key button grabs |
 
 #### Complete example
 
@@ -687,8 +773,8 @@ int main(void)
     // event 2  = KeyPress,      mask 1L<<0 = KeyPressMask
     mlx_hook(data.win, 2, 1L<<0, on_keypress, &data);
 
-    // event 17 = DestroyNotify, mask 0 (no mask needed for this event)
-    mlx_hook(data.win, 17, 0, on_close, &data);
+    // event 17 = DestroyNotify, mask 1L<<17 (no mask needed for this event)
+    mlx_hook(data.win, 17, 1L<<17, on_close, &data);
 
     mlx_loop(data.mlx);
 
@@ -772,6 +858,29 @@ int every_frame(void *param)
 
 mlx_loop_hook(mlx, every_frame, game);
 ```
+
+### Calling conventions — full reference
+
+This table summarises what arguments MiniLibX will pass to your callback depending on which event you hooked. These are hardcoded inside MiniLibX (in `mlx_int_param_event.c` on Linux, in `mlx.h` comments on macOS) and are the same on both platforms.
+
+| Hook function | Event code | Callback signature |
+|---|---|---|
+| `mlx_key_hook` | 2 — KeyPress | `func(int keycode, void *param)` |
+| `mlx_mouse_hook` | 4 — ButtonPress | `func(int button, int x, int y, void *param)` |
+| `mlx_expose_hook` | 12 — Expose | `func(void *param)` |
+| `mlx_loop_hook` | — (every frame) | `func(void *param)` |
+| `mlx_hook` — KeyPress (2) | 2 | `func(int keycode, void *param)` |
+| `mlx_hook` — KeyRelease (3) | 3 | `func(int keycode, void *param)` |
+| `mlx_hook` — ButtonPress (4) | 4 | `func(int button, int x, int y, void *param)` |
+| `mlx_hook` — ButtonRelease (5) | 5 | `func(int button, int x, int y, void *param)` |
+| `mlx_hook` — MotionNotify (6) | 6 | `func(int x, int y, void *param)` |
+| `mlx_hook` — Expose (12) | 12 | `func(void *param)` |
+| `mlx_hook` — DestroyNotify (17) | 17 | `func(void *param)` |
+| any other event via `mlx_hook` | — | `func(void *param)` |
+
+> `keycode` is the key symbol (e.g. 65307 for ESC). `button` is the mouse button number (1 = left, 2 = middle, 3 = right). `x` and `y` are cursor coordinates relative to the window.
+
+---
 
 ### `mlx_loop`
 ```c
@@ -921,3 +1030,49 @@ int main(void)
     mlx_loop(mlx);
 }
 ```
+
+## Portability — macOS vs Linux
+
+Your `.c` source files do not need to change between platforms. The Makefile detects the OS with `$(shell uname)` and automatically selects the right library, include path, and linker flags. Running `make` on either system will produce a working binary without touching your source.
+
+The **one exception is keycodes**. The integer value MiniLibX passes to your keypress callback differs between macOS and Linux:
+
+| Key | macOS | Linux |
+|---|---|---|
+| ESC | 53 | 65307 |
+| W | 13 | 119 |
+| A | 0 | 97 |
+| S | 1 | 115 |
+| D | 2 | 100 |
+| Arrow up | 126 | 65362 |
+| Arrow down | 125 | 65364 |
+| Arrow left | 123 | 65361 |
+| Arrow right | 124 | 65363 |
+
+The standard solution is to define your keycodes in a header file using `#ifdef`:
+
+```c
+# ifdef __APPLE__
+#  define KEY_ESC        53
+#  define KEY_W          13
+#  define KEY_A          0
+#  define KEY_S          1
+#  define KEY_D          2
+#  define KEY_UP         126
+#  define KEY_DOWN       125
+#  define KEY_LEFT       123
+#  define KEY_RIGHT      124
+# else
+#  define KEY_ESC        65307
+#  define KEY_W          119
+#  define KEY_A          97
+#  define KEY_S          115
+#  define KEY_D          100
+#  define KEY_UP         65362
+#  define KEY_DOWN       65364
+#  define KEY_LEFT       65361
+#  define KEY_RIGHT      65363
+# endif
+```
+
+Then use the macro names in your code (`KEY_ESC`, `KEY_W`, etc.) and never hardcode the raw integers. This is the only place your source needs to be platform-aware.
