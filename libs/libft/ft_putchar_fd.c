@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/26 12:08:44 by jchartie          #+#    #+#             */
-/*   Updated: 2026/02/27 11:50:53 by admin            ###   ########.fr       */
+/*   Created: 2025/11/24 12:35:48 by jchartie          #+#    #+#             */
+/*   Updated: 2025/11/24 12:41:43 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	ft_putchar_fd(char c, int fd)
 {
-	if (argc != 2)
-		error(ERR_ARGS, 1);
+	write(fd, &c, 1);
 }
+/*
+int main(void)
+{
+	char c = 'c';
+	int fd = 10;
+	ft_putchar_fd(c, fd);
+}*/

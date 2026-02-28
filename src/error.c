@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/26 12:08:44 by jchartie          #+#    #+#             */
-/*   Updated: 2026/02/27 11:50:53 by admin            ###   ########.fr       */
+/*   Created: 2026/02/27 10:55:35 by admin             #+#    #+#             */
+/*   Updated: 2026/02/27 16:05:19 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	main(int argc, char **argv)
+void	error(char *msg, int exit_code)
 {
-	if (argc != 2)
-		error(ERR_ARGS, 1);
+	ft_printf("Error\n%s", msg);
+	exit(exit_code);
 }

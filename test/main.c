@@ -5,15 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/26 12:08:44 by jchartie          #+#    #+#             */
-/*   Updated: 2026/02/27 11:50:53 by admin            ###   ########.fr       */
+/*   Created: 2026/02/27 16:16:15 by admin             #+#    #+#             */
+/*   Updated: 2026/02/27 17:01:45 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "test_runner.h"
 
-int	main(int argc, char **argv)
+int main(void)
 {
-	if (argc != 2)
-		error(ERR_ARGS, 1);
+
+	test_map_name();
 }

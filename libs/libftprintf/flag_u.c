@@ -1,19 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   flag_u.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/26 12:08:44 by jchartie          #+#    #+#             */
-/*   Updated: 2026/02/27 11:50:53 by admin            ###   ########.fr       */
+/*   Created: 2025/12/02 12:02:12 by jchartie          #+#    #+#             */
+/*   Updated: 2026/02/11 21:28:58 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "ft_printf.h"
 
-int	main(int argc, char **argv)
+int	printf_u(unsigned int n)
 {
-	if (argc != 2)
-		error(ERR_ARGS, 1);
+	int				count;
+	unsigned char	c;
+
+	count = 0;
+	if (n >= 10)
+		count += printf_u(n / 10);
+	c = (char)(n % 10) + '0';
+	write(2, &c, 1);
+	return (count + 1);
 }
+/*
+int main(void)
+{
+	long n = -450;
+	printf("\n%d\n", printf("%u", n));
+	printf("\n%d\n", printf_u(n));
+}*/
