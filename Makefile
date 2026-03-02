@@ -6,7 +6,7 @@
 #    By: admin <admin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/10 11:15:08 by jchartie          #+#    #+#              #
-#    Updated: 2026/02/27 16:23:22 by admin            ###   ########.fr        #
+#    Updated: 2026/03/02 10:59:45 by admin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,16 +14,20 @@
 CC = cc
 CFLAGS = -g3 -O0
 NAME = so_long
+TEST_NAME = test_so_long
 
 # Directories and Paths
 SRC_DIR = src/
 OBJ_DIR = obj/
+TEST_DIR = test
 LIBFT_DIR = libs/libft
 PRINTF_DIR = libs/libftprintf
 
 # Sources and Objects
 MAIN_SOURCES = main.c	parser_1.c	error.c
 MAIN_OBJECTS = $(addprefix $(OBJ_DIR), $(MAIN_SOURCES:.c=.o))
+TEST_SOURCES = $(TEST_DIR)/main.c	$(TEST_DIR)/parser.c	$(SRC_DIR)parser_1.c	\
+				$(SRC_DIR)error.c
 LIB_OBJ = $(LIBFT_DIR)/libft.a $(PRINTF_DIR)/libftprintf.a $(MLX_DIR)/libmlx.a
 
 # Libraries and Flags
@@ -69,6 +73,8 @@ fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean
 	$(MAKE) -C $(PRINTF_DIR) fclean
 	$(MAKE) -C $(MLX_DIR) clean
+	rm -rf $(TEST_NAME).dSYM
+	rm -f $(TEST_NAME)
 	rm -f $(NAME)
 
 # Recompile all files
@@ -76,6 +82,8 @@ re: fclean
 	$(MAKE) all
 
 # Run tests
-test:
+test: $(LIB_OBJ)
+	@$(CC) $(CFLAGS) $(INCLUDES) $(MLX_FLAGS) $(TEST_SOURCES) $(LIB_OBJ) -o $(TEST_NAME)
+	@./$(TEST_NAME)
 	
 

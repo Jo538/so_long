@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:45:35 by admin             #+#    #+#             */
-/*   Updated: 2026/02/27 16:19:12 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/02 10:47:40 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@
 # include "ft_printf.h"
 
 void	error(char *msg, int exit_code);
-void	map_name(char *map);
+int		map_name(char *map);
 
 #endif
