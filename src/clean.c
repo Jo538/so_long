@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/26 12:08:44 by jchartie          #+#    #+#             */
-/*   Updated: 2026/03/02 11:37:33 by admin            ###   ########.fr       */
+/*   Created: 2026/03/02 16:41:21 by admin             #+#    #+#             */
+/*   Updated: 2026/03/02 16:43:06 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	main(int argc, char **argv)
+void	free_tab(char **tab)
 {
-	char	**map;
-	
-	map = NULL;
-	if (argc != 2)
-		error(ERR_ARGS, 1);
-	if (map_name(argv[1]))
-		error(ERR_MAP_NAME, 1);
-	map = map_to_tab(argv[1]);
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }

@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:41:11 by admin             #+#    #+#             */
-/*   Updated: 2026/03/02 11:12:42 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/02 12:07:21 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ extern int	tests_passed;
   } while(0)
 
 void test_map_name(void);
+void test_map_to_tab(void);
 #endif
