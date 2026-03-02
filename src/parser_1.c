@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:44:49 by admin             #+#    #+#             */
-/*   Updated: 2026/02/27 17:19:54 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/02 11:03:36 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	map_name(char *map)
 	if (!map || !map[0])
 		return (1);
 	len = ft_strlen(map);
-	if (len < 4)
+	if (len <= 4)
 		return (1);
 	len = len - 4;
 	if (!map[len] || ft_strncmp(map + len, ".ber", 4) != 0)

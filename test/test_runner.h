@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:41:11 by admin             #+#    #+#             */
-/*   Updated: 2026/03/02 10:53:20 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/02 11:12:42 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@
 extern int	tests_run;
 extern int	tests_passed;
 
-# define TEST_ASSERT(condition, msg) do {        \
+# define TEST_ASSERT(actual, expected, msg) do {        \
       tests_run++;                                \
-      if (condition) {                            \
+      if (actual == expected) {                            \
           printf("PASS: %s\n", msg);             \
           tests_passed++;                         \
       } else {                                    \
           printf("FAIL: %s (line %d)\n", msg, __LINE__); \
+          printf("Actual: %d\n", actual);          \
+          printf("Expected: %d\n", expected);        \
       }                                           \
   } while(0)
 
