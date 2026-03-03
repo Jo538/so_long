@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:44:49 by admin             #+#    #+#             */
-/*   Updated: 2026/03/02 16:38:46 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/03 11:08:36 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static char	*extract_one_line_map(int fd)
 	return (new_line);
 }
 
-// open map + extract first line of map
 char	**map_to_tab(char *map_name)
 {
 	int		fd;
@@ -65,4 +64,26 @@ char	**map_to_tab(char *map_name)
 	free(line);
 	close(fd);
 	return (map);
+}
+
+int	map_is_rectangular(char **map)
+{
+	int	length;
+	int	width;
+	int	i;
+
+	length = ft_strlen(map[0]);
+	width = 0;
+	while (map[width])
+		width++;
+	if (length == width)
+		return (1);
+	i = 1;
+	while (map[i])
+	{
+		if (ft_strlen(map[i]) != length)
+			return (1);
+		i++;
+	}
+	return (0);
 }

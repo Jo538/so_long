@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:59:34 by admin             #+#    #+#             */
-/*   Updated: 2026/03/02 17:23:22 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/03 11:42:18 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,35 @@ void test_map_to_tab(void)
 	TEST_ASSERT(ft_strncmp(map[0], "A", ft_strlen("A")), 0, "empty_first_row: ft_split skips empty row, line 1 should be A");
 	TEST_ASSERT(map[1] == NULL, 1, "empty_first_row: array should be NULL-terminated");
 	free_tab(map);
-
 }
+
+void	test_map_is_rectangular(void)
+{
+	char **map;
+
+	// map is rectangular 3x5
+	char *case_a[] = {"11111", "1P0C1", "11111", NULL};
+	map = case_a;
+	TEST_ASSERT(map_is_rectangular(map), 0, "3x5 map is rectangular");
+
+	// map is rectangular 5x3
+	char *case_b[] = {"111", "1P0", "111", "234", "ABC", NULL};
+	map = case_b;
+	TEST_ASSERT(map_is_rectangular(map), 0, "5x3 map is rectangular");
+
+	// row 3 is shorter than other rows
+	char *case_c[] = {"111", "1P0", "11", "234", "ABC", NULL};
+	map = case_c;
+	TEST_ASSERT(map_is_rectangular(map), 1, "row three is shorter than other rows");
+
+	// row 3 is longer than other rows
+	char *case_d[] = {"111", "1P0", "1111", "234", "ABC", NULL};
+	map = case_d;
+	TEST_ASSERT(map_is_rectangular(map), 1, "row three is longer than other rows");
+
+	// map is squared
+	char *case_e[] = {"111", "1P0", "111", NULL};
+	map = case_e;
+	TEST_ASSERT(map_is_rectangular(map), 1, "map is squared");
+}
+

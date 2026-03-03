@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:16:15 by admin             #+#    #+#             */
-/*   Updated: 2026/03/02 12:08:17 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/03 11:26:13 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ int	tests_passed;
 
 int main(void)
 {
+	printf("%s", "--------------TEST VALID MAP NAME--------------\n\n");
 	test_map_name();
-	printf("%c\n", '\n');
+	printf("\n\n%s", "--------------TEST MAP GETS CONVERTED TO 2D ARRAY--------------\n\n");
 	test_map_to_tab();
+	printf("\n\n%s", "--------------TEST MAP IS RECTANGULAR--------------\n\n");
+	test_map_is_rectangular();
 	
 }
