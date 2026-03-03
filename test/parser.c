@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:59:34 by admin             #+#    #+#             */
-/*   Updated: 2026/03/03 11:42:18 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/03 12:23:57 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,40 @@ void	test_map_is_rectangular(void)
 	char *case_e[] = {"111", "1P0", "111", NULL};
 	map = case_e;
 	TEST_ASSERT(map_is_rectangular(map), 1, "map is squared");
+}
+
+void	test_check_collectibles(void)
+{
+	char **map;
+	
+	// 1P + 1E + 1C
+	char *case_a[] = {"11E11", "1P0C1", "11111", NULL};
+	map = case_a;
+	TEST_ASSERT(check_collectibles(map), 0, "Good number of collectibles");
+
+	// 0P + 1E + 1C
+	char *case_b[] = {"1E111", "100C1", "11111", NULL};
+	map = case_b;
+	TEST_ASSERT(check_collectibles(map), 1, "0P + 1E + 1C");
+
+	// 1P + 0E + 1C
+	char *case_c[] = {"11111", "1P0C1", "11111", NULL};
+	map = case_c;
+	TEST_ASSERT(check_collectibles(map), 1, "1P + 0E + 1C");
+
+	// 1P + 1E + 0C
+	char *case_d[] = {"11E11", "1P001", "11111", NULL};
+	map = case_d;
+	TEST_ASSERT(check_collectibles(map), 1, "1P + 1E + 0C");
+
+	// 2P + 1E + 3C
+	char *case_e[] = {"1PE11", "1P00C", "111C1", NULL};
+	map = case_e;
+	TEST_ASSERT(check_collectibles(map), 1, "2P + 1E + 3C");
+	
+	// 1P + 2E + 3C 
+	char *case_f[] = {"11E11", "1P00C", "1E1C1", NULL};
+	map = case_f;
+	TEST_ASSERT(check_collectibles(map), 1, "1P + 2E + 3C ");
 }
 

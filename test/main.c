@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:16:15 by admin             #+#    #+#             */
-/*   Updated: 2026/03/03 11:26:13 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/03 12:23:35 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ int main(void)
 	test_map_to_tab();
 	printf("\n\n%s", "--------------TEST MAP IS RECTANGULAR--------------\n\n");
 	test_map_is_rectangular();
+	printf("\n\n%s", "--------------TEST MAP RULES ON P + E + C--------------\n\n");	
+	test_check_collectibles();
 	
 }

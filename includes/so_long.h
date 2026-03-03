@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:45:35 by admin             #+#    #+#             */
-/*   Updated: 2026/03/03 11:09:56 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/03 12:12:19 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ void	free_tab(char **tab);
 int		map_name(char *map);
 char	**map_to_tab(char *map_name);
 int		map_is_rectangular(char **map);
+int		check_collectibles(char **map);
 
 #endif

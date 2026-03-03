@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:44:49 by admin             #+#    #+#             */
-/*   Updated: 2026/03/03 11:08:36 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/03 12:12:03 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,32 @@ int	map_is_rectangular(char **map)
 			return (1);
 		i++;
 	}
+	return (0);
+}
+
+int	check_collectibles(char **map)
+{
+	int	i;
+	int	j;
+	int	count[3] = {0};
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'P')
+				count[0]++;
+			if (map[i][j] == 'E')
+				count[1]++;
+			if (map[i][j] == 'C')
+				count[2]++;
+			j++;
+		}
+		i++;
+	}
+	if (count[0] != 1 || count[1] != 1 || count[2] < 1)
+		return (1);
 	return (0);
 }
