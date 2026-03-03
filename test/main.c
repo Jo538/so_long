@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:16:15 by admin             #+#    #+#             */
-/*   Updated: 2026/03/03 12:23:35 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/03 15:06:53 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ int main(void)
 	test_map_is_rectangular();
 	printf("\n\n%s", "--------------TEST MAP RULES ON P + E + C--------------\n\n");	
 	test_check_collectibles();
-	
+	printf("\n\n%s", "--------------TEST MAP SURROUNDED BY WALLS--------------\n\n");
+	test_check_walls();
 }

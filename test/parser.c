@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:59:34 by admin             #+#    #+#             */
-/*   Updated: 2026/03/03 12:23:57 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/03 15:25:41 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,35 @@ void	test_check_collectibles(void)
 	char *case_f[] = {"11E11", "1P00C", "1E1C1", NULL};
 	map = case_f;
 	TEST_ASSERT(check_collectibles(map), 1, "1P + 2E + 3C ");
+}
+
+void test_check_walls(void)
+{
+	char **map;
+
+	// map OK
+	char *case_a[] = {"11111", "1P0C1", "11111", NULL};
+	map = case_a;
+	TEST_ASSERT(check_walls(map), 0, "Map surrounded by walls");
+
+	// first row is not just 1s
+	char *case_b[] = {"11P11", "1P0C1", "11111", NULL};
+	map = case_b;
+	TEST_ASSERT(check_walls(map), 1, "First row: 11P11");
+
+	// last row is not just 1s
+	char *case_c[] = {"11111", "1P0C1", "11P11", NULL};
+	map = case_c;
+	TEST_ASSERT(check_walls(map), 1, "Last row: 11P11");
+
+	// first character of middle row is not 1
+	char *case_d[] = {"11111", "CP0C1", "11111", NULL};
+	map = case_d;
+	TEST_ASSERT(check_walls(map), 1, "First character of middle row: CP0C1");
+
+	// last character of middle row is not 1
+	char *case_e[] = {"11111", "1P0CC", "11111", NULL};
+	map = case_e;
+	TEST_ASSERT(check_walls(map), 1, "Last character of middle row: CP0C1");
 }
 
