@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:16:15 by admin             #+#    #+#             */
-/*   Updated: 2026/03/04 10:46:43 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/04 14:22:40 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,6 @@ int main(void)
 	test_check_walls();
 	printf("\n\n%s", "--------------TEST COORDS OF P FOUND--------------\n\n");
 	test_find_p_coords();
+	printf("\n\n%s", "--------------TEST MAP COPIED--------------\n\n");
+	test_copy_map();
 }

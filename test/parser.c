@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:59:34 by admin             #+#    #+#             */
-/*   Updated: 2026/03/04 10:47:09 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/04 14:28:51 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,5 +192,17 @@ void test_find_p_coords(void)
 	TEST_ASSERT(coords[1], 1, "P on map[1][1]");
 	free(coords);
 
+}
+
+void test_copy_map(void)
+{
+
+	char *map[] = {"11111", "100P1", "11111", NULL};
+	char **map_bis = copy_map(map);
+	TEST_ASSERT(ft_strncmp(map_bis[0], map[0], ft_strlen("11111")), 0, "Row 1 should be: 11111");
+	TEST_ASSERT(ft_strncmp(map_bis[1], map[1], ft_strlen("100P1")), 0, "Row 2 should be: 100P1");
+	TEST_ASSERT(ft_strncmp(map_bis[2], map[2], ft_strlen("11111")), 0, "Row 3 should be: 11111");
+	TEST_ASSERT(map_bis[3] == NULL, 1, "Row 4 should be: NULL");
+	free_tab(map_bis);
 }
 

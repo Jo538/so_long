@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:41:11 by admin             #+#    #+#             */
-/*   Updated: 2026/03/04 11:08:18 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/04 14:13:51 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ void test_map_is_rectangular(void);
 void test_check_collectibles(void);
 void test_check_walls(void);
 void test_find_p_coords(void);
+void test_copy_map(void);
+
+// static functions
 int	*find_p_coords(char **map);
+char **copy_map(char **map);
 
 #endif

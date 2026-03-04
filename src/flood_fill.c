@@ -6,14 +6,17 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 10:18:23 by admin             #+#    #+#             */
-/*   Updated: 2026/03/04 11:06:40 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/04 14:14:24 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-
+#ifdef TESTING
+char	**copy_map(char **map)
+#else
 static char	**copy_map(char **map)
+#endif
 {
 	int		rows;
 	int		i;
