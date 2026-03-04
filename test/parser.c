@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:59:34 by admin             #+#    #+#             */
-/*   Updated: 2026/03/04 15:18:33 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/04 16:47:17 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ void test_flood_fill(void)
 
 	// Map is 11111  Flooded: 11111
 	//        1P0C1           1FFF1
-	//        1C0E1           1FFF1
+	//        1C0E1           1FFE1
 	//        11111           11111 
 	char row0[] = "11111";
 	char row1[] = "1P0C1";
@@ -220,10 +220,10 @@ void test_flood_fill(void)
 	char row3[] = "11111";
 	char *case_a[] = {row0, row1, row2, row3, NULL};
 	map = case_a;
-	flood_fill(map, 1, 1);
+	flood_fill(map, 1, 1, 'C');
 	TEST_ASSERT(ft_strncmp(map[0], "11111", ft_strlen("11111")), 0, "Row 1 should be 11111");
 	TEST_ASSERT(ft_strncmp(map[1], "1FFF1", ft_strlen("1FFF1")), 0, "Row 2 should be 1FFF1");
-	TEST_ASSERT(ft_strncmp(map[2], "1FFF1", ft_strlen("1FFF1")), 0, "Row 3 should be 1FFF1");
+	TEST_ASSERT(ft_strncmp(map[2], "1FFE1", ft_strlen("1FFE1")), 0, "Row 3 should be 1FFE1");
 	TEST_ASSERT(ft_strncmp(map[3], "11111", ft_strlen("11111")), 0, "Row 4 should be 11111");
 	TEST_ASSERT(map[4] == NULL, 1, "map should be NULL-terminated");
 
@@ -237,7 +237,7 @@ void test_flood_fill(void)
 	char row33[] = "11111";
 	char *case_b[] = {row00, row11, row22, row33, NULL};
 	map = case_b;
-	flood_fill(map, 2, 1);
+	flood_fill(map, 2, 1, 'E');
 	TEST_ASSERT(ft_strncmp(map[0], "11111", ft_strlen("11111")), 0, "Row 1 should be 11111");
 	TEST_ASSERT(ft_strncmp(map[1], "1F101", ft_strlen("1F101")), 0, "Row 2 should be 1F101");
 	TEST_ASSERT(ft_strncmp(map[2], "1F1E1", ft_strlen("1F1E1")), 0, "Row 3 should be 1F1E1");
@@ -252,16 +252,44 @@ void test_scan_flood_fill(void)
 	// map OK
 	char *case_a[] = {"11111", "1FFF1", "11111", NULL};
 	map = case_a;
-	TEST_ASSERT(scan_flood_fill_output(map), 0, "E and all C accessible");
+	TEST_ASSERT(scan_flood_fill_output(map, 'C'), 0, "C accessible");
+	TEST_ASSERT(scan_flood_fill_output(map, 'E'), 0, "E accessible");
 
 	// All C not accessible
-	char *case_b[] = {"11P11", "1PFC1", "11111", NULL};
+	char *case_b[] = {"11111", "1FFFC1", "11111", NULL};
 	map = case_b;
-	TEST_ASSERT(scan_flood_fill_output(map), 1, "all C not accessible");
+	TEST_ASSERT(scan_flood_fill_output(map, 'C'), 1, "C not accessible");
+	TEST_ASSERT(scan_flood_fill_output(map, 'E'), 0, "E accessible");
 
 	// E not accessible
-	char *case_c[] = {"11P11", "1PFC1", "1FFE1" , "11111", NULL};
+	char *case_c[] = {"11P11", "1PFF1", "1FFE1" , "11111", NULL};
 	map = case_c;
-	TEST_ASSERT(scan_flood_fill_output(map), 1, "E not accessible");
+	TEST_ASSERT(scan_flood_fill_output(map, 'C'), 0, "C accessible");
+	TEST_ASSERT(scan_flood_fill_output(map, 'E'), 1, "E not accessible");
+}
+
+void test_check_path(void)
+{
+	char **map;
+
+	// map OK
+	char *case_a[] = {"11111", "1PCE1", "11111", NULL};
+	map = case_a;
+	TEST_ASSERT(check_path(map), 0, "Map is valid");
+
+	// E is not reachable
+	char *case_b[] = {"11111", "1P101", "1P1E1", "11111", NULL};
+	map = case_b;
+	TEST_ASSERT(check_path(map), 1, "E is not accessible");
+
+	// C not accessible
+	char *case_c[] = {"11111", "1P1C1", "1E111" , "11111", NULL};
+	map = case_c;
+	TEST_ASSERT(check_path(map), 1, "C not accessible");
+
+	// C not accessible because E is blocking the way
+	char *case_d[] = {"11111", "1PE01", "111C1" , "11111", NULL};
+	map = case_d;
+	TEST_ASSERT(check_path(map), 1, "C not accessible because E is blocking the way");
 }
 

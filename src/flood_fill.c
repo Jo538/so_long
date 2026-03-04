@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 10:18:23 by admin             #+#    #+#             */
-/*   Updated: 2026/03/04 15:09:19 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/04 16:58:07 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	**copy_map(char **map)
 	rows = 0;
 	while (map[rows])
 		rows++;
-	tmp_map = ft_calloc(rows, sizeof(char *));
+	tmp_map = ft_calloc(rows + 1, sizeof(char *));
 	if (!tmp_map)
 		return (NULL);
 	i = 0;
@@ -36,6 +36,7 @@ static char	**copy_map(char **map)
 			return (free_tab(tmp_map), NULL);
 		i++;
 	}
+	tmp_map[i] = NULL;
 	return (tmp_map);
 }
 
@@ -72,24 +73,32 @@ static int	*find_p_coords(char **map)
 }
 
 #ifdef TESTING
-void	flood_fill(char **map, int row, int col)
+void	flood_fill(char **map, int row, int col, char sprite)
 #else
-static void	flood_fill(char **map, int row, int col)
+static void	flood_fill(char **map, int row, int col, char sprite)
 #endif
 {
-	if (map[row][col] == 'F' || map[row][col] == '1')
-		return ;
+	if (sprite == 'C')
+	{
+		if (map[row][col] == 'F' || map[row][col] == '1' || map[row][col] == 'E')
+			return ;
+	}
+	if (sprite == 'E')
+	{
+		if (map[row][col] == 'F' || map[row][col] == '1')
+			return ;
+	}
 	map[row][col] = 'F';
-	flood_fill(map, row + 1, col);
-	flood_fill(map, row - 1, col);
-	flood_fill(map, row, col + 1);
-	flood_fill(map, row, col - 1);
+	flood_fill(map, row + 1, col, sprite);
+	flood_fill(map, row - 1, col, sprite);
+	flood_fill(map, row, col + 1, sprite);
+	flood_fill(map, row, col - 1, sprite);
 }
 
 #ifdef TESTING
-int	scan_flood_fill_output(char **map)
+int	scan_flood_fill_output(char **map, char sprite)
 #else
-static int	scan_flood_fill_output(char **map)
+static int	scan_flood_fill_output(char **map, char sprite)
 #endif
 {
 	int	row;
@@ -101,7 +110,7 @@ static int	scan_flood_fill_output(char **map)
 		col = 1;
 		while (map[row][col])
 		{
-			if (map[row][col] == 'E' || map[row][col] == 'C')
+			if (map[row][col] == sprite)
 				return (1);
 			col++;
 		}
@@ -110,20 +119,36 @@ static int	scan_flood_fill_output(char **map)
 	return (0);
 }
 
+static int	flood_fill_loop(char **map, int coords[2], char sprite)
+{
+	int		row_p;
+	int		col_p;
+	char	**map_bis;
+
+	row_p = coords[0];
+	col_p = coords[1];
+	map_bis = copy_map(map);
+	flood_fill(map_bis, row_p, col_p, sprite);
+	if (scan_flood_fill_output(map_bis, sprite))
+	{
+		free_tab(map_bis);
+		return (1);
+	}
+	free_tab(map_bis);
+	return (0);
+}
+
 int	check_path(char **map)
 {
 	int		*coords_p;
-	char	**map_bis;
-	int		row_p;
-	int		col_p;
 
 	coords_p = find_p_coords(map);
-	row_p = coords_p[0];
-	col_p = coords_p[1];
+	if (flood_fill_loop(map, coords_p, 'C')
+		|| flood_fill_loop(map, coords_p, 'E'))
+	{
+		free(coords_p);
+		return (1);
+	}
 	free(coords_p);
-	map_bis = copy_map(map);
-	flood_fill(map_bis, row_p, col_p);
-	if (scan_flood_fill_output(map_bis))
-		return (free_tab(map_bis), 1);
-	return (free_tab(map_bis), 0);
+	return (0);
 }
