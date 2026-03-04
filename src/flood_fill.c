@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 10:18:23 by admin             #+#    #+#             */
-/*   Updated: 2026/03/04 14:14:24 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/04 15:09:19 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,11 @@ static int	*find_p_coords(char **map)
 	return (coords);
 }
 
+#ifdef TESTING
+void	flood_fill(char **map, int row, int col)
+#else
 static void	flood_fill(char **map, int row, int col)
+#endif
 {
 	if (map[row][col] == 'F' || map[row][col] == '1')
 		return ;
@@ -82,7 +86,11 @@ static void	flood_fill(char **map, int row, int col)
 	flood_fill(map, row, col - 1);
 }
 
+#ifdef TESTING
+int	scan_flood_fill_output(char **map)
+#else
 static int	scan_flood_fill_output(char **map)
+#endif
 {
 	int	row;
 	int	col;

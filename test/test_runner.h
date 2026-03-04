@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:41:11 by admin             #+#    #+#             */
-/*   Updated: 2026/03/04 14:13:51 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/04 15:09:46 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,13 @@ void test_check_collectibles(void);
 void test_check_walls(void);
 void test_find_p_coords(void);
 void test_copy_map(void);
+void test_flood_fill(void);
+void test_scan_flood_fill(void);
 
 // static functions
 int	*find_p_coords(char **map);
 char **copy_map(char **map);
+void flood_fill(char **map, int row, int col);
+int	scan_flood_fill_output(char **map);
 
 #endif

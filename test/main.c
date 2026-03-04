@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:16:15 by admin             #+#    #+#             */
-/*   Updated: 2026/03/04 14:22:40 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/04 15:10:32 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,8 @@ int main(void)
 	test_find_p_coords();
 	printf("\n\n%s", "--------------TEST MAP COPIED--------------\n\n");
 	test_copy_map();
+	printf("\n\n%s", "--------------TEST FLOOD FILL ALGO--------------\n\n");
+	test_flood_fill();
+	printf("\n\n%s", "--------------TEST SCANNING OF FLOOD FILL RESULT--------------\n\n");
+	test_scan_flood_fill();
 }
