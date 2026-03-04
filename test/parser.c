@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:59:34 by admin             #+#    #+#             */
-/*   Updated: 2026/03/03 15:25:41 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/04 10:47:09 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,5 +169,28 @@ void test_check_walls(void)
 	char *case_e[] = {"11111", "1P0CC", "11111", NULL};
 	map = case_e;
 	TEST_ASSERT(check_walls(map), 1, "Last character of middle row: CP0C1");
+}
+
+void test_find_p_coords(void)
+{
+	char **map;
+	int *coords;
+
+	// P on map[1][3]
+	char *case_a[] = {"11111", "100P1", "11111", NULL};
+	map = case_a;
+	coords = find_p_coords(map);
+	TEST_ASSERT(coords[0], 1, "P on map[1][3]");
+	TEST_ASSERT(coords[1], 3, "P on map[1][3]");
+	free(coords);
+	
+	// P on map[1][1]
+	char *case_b[] = {"11111", "1P0C1", "11111", NULL};
+	map = case_b;
+	coords = find_p_coords(map);
+	TEST_ASSERT(coords[0], 1, "P on map[1][1]");
+	TEST_ASSERT(coords[1], 1, "P on map[1][1]");
+	free(coords);
+
 }
 

@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:41:11 by admin             #+#    #+#             */
-/*   Updated: 2026/03/03 15:00:36 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/04 11:08:18 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ extern int	tests_passed;
 
 void test_map_name(void);
 void test_map_to_tab(void);
-void	test_map_is_rectangular(void);
-void	test_check_collectibles(void);
+void test_map_is_rectangular(void);
+void test_check_collectibles(void);
 void test_check_walls(void);
+void test_find_p_coords(void);
+int	*find_p_coords(char **map);
 
 #endif
