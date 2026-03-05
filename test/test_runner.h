@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:41:11 by admin             #+#    #+#             */
-/*   Updated: 2026/03/04 16:42:03 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/05 18:42:10 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,13 @@ void test_copy_map(void);
 void test_flood_fill(void);
 void test_scan_flood_fill(void);
 void test_check_path(void);
+void test_get_window_size(void);
 
 // static functions
 int	*find_p_coords(char **map);
 char **copy_map(char **map);
 void flood_fill(char **map, int row, int col, char sprite);
 int	scan_flood_fill_output(char **map, char sprite);
+void get_window_size(char **map, t_game *game);
 
 #endif

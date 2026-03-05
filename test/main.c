@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:16:15 by admin             #+#    #+#             */
-/*   Updated: 2026/03/04 15:29:29 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/05 18:42:49 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,6 @@ int main(void)
 	test_scan_flood_fill();
 	printf("\n\n%s", "--------------TEST CHECK PATH REACHABLE--------------\n\n");
 	test_check_path();
+	printf("\n\n%s", "--------------WINDOW SIZE CORRECTNESS--------------\n\n");
+	test_get_window_size();
 }
