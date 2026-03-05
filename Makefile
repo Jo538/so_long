@@ -6,7 +6,7 @@
 #    By: admin <admin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/10 11:15:08 by jchartie          #+#    #+#              #
-#    Updated: 2026/03/04 11:07:55 by admin            ###   ########.fr        #
+#    Updated: 2026/03/05 17:00:43 by admin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,10 +25,11 @@ LIBFT_DIR = libs/libft
 PRINTF_DIR = libs/libftprintf
 
 # Sources and Objects
-MAIN_SOURCES = main.c	parser_1.c	clean_error.c	parser_2.c	flood_fill.c
+MAIN_SOURCES = main.c	parser_1.c	clean_error.c	parser_2.c	flood_fill.c	game.c
 MAIN_OBJECTS = $(addprefix $(OBJ_DIR), $(MAIN_SOURCES:.c=.o))
 TEST_SOURCES = $(TEST_DIR)/main.c	$(TEST_DIR)/parser.c	$(SRC_DIR)parser_1.c	\
-				$(SRC_DIR)clean_error.c	$(SRC_DIR)parser_2.c	$(SRC_DIR)flood_fill.c
+				$(SRC_DIR)clean_error.c	$(SRC_DIR)parser_2.c	$(SRC_DIR)flood_fill.c	\
+				$(SRC_DIR)game.c
 GNL_SOURCES = get_next_line_utils.c	get_next_line.c
 GNL_OBJ = $(addprefix $(GNL_DIR)/, $(GNL_SOURCES:.c=.o))
 LIB_OBJ = $(LIBFT_DIR)/libft.a $(PRINTF_DIR)/libftprintf.a	$(MLX_DIR)/libmlx.a

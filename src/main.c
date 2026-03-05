@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 12:08:44 by jchartie          #+#    #+#             */
-/*   Updated: 2026/03/02 11:37:33 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/05 17:53:11 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ int	main(int argc, char **argv)
 	if (map_name(argv[1]))
 		error(ERR_MAP_NAME, 1);
 	map = map_to_tab(argv[1]);
+	init_frame(map);
 }
