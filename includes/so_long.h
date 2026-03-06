@@ -6,17 +6,12 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:45:35 by admin             #+#    #+#             */
-/*   Updated: 2026/03/05 18:01:00 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/06 11:07:47 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
-
-# define TILE_SIZE 64
-
-# define ERR_ARGS "Incorrect number of arguments"
-# define ERR_MAP_NAME "Invalid file name for .ber map"
 
 # include <stdio.h>
 # include <unistd.h>
@@ -26,10 +21,32 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 
+# define TILE_SIZE 64
+
+# define ERR_ARGS "Incorrect number of arguments"
+# define ERR_MAP_NAME "Invalid file name for .ber map"
+
+# ifdef __APPLE__
+#  define KEY_ESC 53
+#  define KEY_W 13
+#  define KEY_A 0
+#  define KEY_S 1
+#  define KEY_D 2
+# else
+#  define KEY_ESC 65307
+#  define KEY_W 119
+#  define KEY_A 97
+#  define KEY_S 115
+#  define KEY_D 100
+# endif
+
 typedef struct s_game
 {
 	int		width;
 	int		height;
+	int		moves;
+	int		coords_p[2];
+	char	**map;
 	void	*mlx;
 	void	*window;
 	void	*grass;
@@ -37,7 +54,6 @@ typedef struct s_game
 	void	*bread;
 	void	*tree;
 	void	*exit;
-	char	**map;
 }	t_game;
 
 
@@ -50,4 +66,7 @@ int		check_collectibles(char **map);
 int		check_walls(char **map);
 int		check_path(char **map);
 void	init_frame(char **map);
+int		on_keypress(int keycode, void *game);
+int		on_close(void *game);
+
 #endif

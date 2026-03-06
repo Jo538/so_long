@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 17:00:04 by admin             #+#    #+#             */
-/*   Updated: 2026/03/05 18:48:15 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/06 11:29:29 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	get_window_size(char **map, t_game *game)
 	game->height = height;
 }
 
-static void	setup(t_game *game)
+static void	load_tiles(t_game *game)
 {
 	int		w;
 	int		h;
@@ -40,27 +40,39 @@ static void	setup(t_game *game)
 	game->exit = mlx_xpm_file_to_image(game->mlx, "textures/exit.xpm", &w, &h);
 }
 
-static void	create_initial_frame(t_game game)
+static void *get_tile_image(int i, int j, t_game *game)
 {
-	int	i;
-	int	j;
+	if (game->map[i][j] == 'P')
+	{
+		game->coords_p[0] = i;
+		game->coords_p[1] = j;
+		return (game->dog);
+	}
+	if (game->map[i][j] == '0')
+		return (game->grass);
+	if (game->map[i][j] == '1')
+		return (game->tree);
+	if (game->map[i][j] == 'C')
+		return (game->bread);
+	if (game->map[i][j] == 'E')
+		return (game->exit);
+	return (NULL);
+}
+
+static void	create_initial_frame(t_game *game)
+{
+	int		i;
+	int		j;
+	void	*tile;
 
 	i = 0;
-	while (i < game.width)
+	while (i < game->height)
 	{
 		j = 0;
-		while (j < game.height)
+		while (j < game->width)
 		{
-			if (game.map[i][j] == '0')
-				mlx_put_image_to_window(game.mlx, game.window, game.grass, j*TILE_SIZE, i*TILE_SIZE);
-			if (game.map[i][j] == 'P')
-				mlx_put_image_to_window(game.mlx, game.window, game.dog, j*TILE_SIZE, i*TILE_SIZE);
-			if (game.map[i][j] == '1')
-				mlx_put_image_to_window(game.mlx, game.window, game.tree, j*TILE_SIZE, i*TILE_SIZE);
-			if (game.map[i][j] == 'C')
-				mlx_put_image_to_window(game.mlx, game.window, game.bread, j*TILE_SIZE, i*TILE_SIZE);
-			if (game.map[i][j] == 'E')
-				mlx_put_image_to_window(game.mlx, game.window, game.exit, j*TILE_SIZE, i*TILE_SIZE);
+			tile = get_tile_image(i, j, game);
+			mlx_put_image_to_window(game->mlx, game->window, tile, j*TILE_SIZE, i*TILE_SIZE);
 			j++;
 		}
 		i++;
@@ -73,10 +85,16 @@ void	init_frame(char **map)
 
 	get_window_size(map, &game);
 
+	game.moves = 0;
 	game.mlx = mlx_init();
 	game.window = mlx_new_window(game.mlx, game.width*TILE_SIZE, game.height*TILE_SIZE, "Pollux's Game");
 
-	create_initial_frame(game);
-
+	load_tiles(&game);
+	create_initial_frame(&game);
+	
+	mlx_key_hook(game.window, on_keypress, &game);
+	mlx_hook(game.window, 17, 1L<<17, on_close, &game);
+	
 	mlx_loop(game.mlx);
+	exit(0);
 }
