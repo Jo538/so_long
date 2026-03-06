@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 17:00:04 by admin             #+#    #+#             */
-/*   Updated: 2026/03/06 11:29:29 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/06 15:00:04 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,4 @@ void	init_frame(char **map)
 	mlx_hook(game.window, 17, 1L<<17, on_close, &game);
 	
 	mlx_loop(game.mlx);
-	exit(0);
 }
