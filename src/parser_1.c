@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:44:49 by admin             #+#    #+#             */
-/*   Updated: 2026/03/06 17:10:43 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/06 17:59:41 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ char	**map_to_tab(char *map_name)
 	err = -1;
 	fd = open(map_name, O_RDONLY);
 	if (fd == -1)
-		error(ERR_FILE);
+		error(ERR_FILE, NULL);
 	line = extract_one_line_map(fd, &err);
 	if (!line)
 	{
 		close(fd);
-		error(err);		
+		error(err, NULL);		
 	}
 	map = ft_split(line, '\n');
 	free(line);
