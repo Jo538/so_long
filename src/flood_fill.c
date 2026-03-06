@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 10:18:23 by admin             #+#    #+#             */
-/*   Updated: 2026/03/04 16:58:07 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/06 17:48:32 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,15 @@ static char	**copy_map(char **map)
 }
 
 #ifdef TESTING
-int	*find_p_coords(char **map)
+void	find_p_coords(char **map)
 #else
-static int	*find_p_coords(char **map)
+void	find_p_coords(char **map, int *coords)
 #endif
 {
 	int	row;
 	int	col;
-	int	*coords;
 
 	row = 1;
-	coords = ft_calloc(2, sizeof(int));
-	if (!coords)
-		return (NULL);
 	while (map[row])
 	{
 		col = 1;
@@ -63,13 +59,11 @@ static int	*find_p_coords(char **map)
 			{
 				coords[0] = row;
 				coords[1] = col;
-				return (coords);
 			}
 			col++;
 		}
 		row++;
 	}
-	return (coords);
 }
 
 #ifdef TESTING
@@ -119,7 +113,7 @@ static int	scan_flood_fill_output(char **map, char sprite)
 	return (0);
 }
 
-static int	flood_fill_loop(char **map, int coords[2], char sprite)
+static int	flood_fill_loop(char **map, int *coords, char sprite)
 {
 	int		row_p;
 	int		col_p;
@@ -128,11 +122,13 @@ static int	flood_fill_loop(char **map, int coords[2], char sprite)
 	row_p = coords[0];
 	col_p = coords[1];
 	map_bis = copy_map(map);
+	if (!map_bis)
+		return (ERR_MALLOC);
 	flood_fill(map_bis, row_p, col_p, sprite);
 	if (scan_flood_fill_output(map_bis, sprite))
 	{
 		free_tab(map_bis);
-		return (1);
+		return (ERR_PATH);
 	}
 	free_tab(map_bis);
 	return (0);
@@ -140,15 +136,15 @@ static int	flood_fill_loop(char **map, int coords[2], char sprite)
 
 int	check_path(char **map)
 {
-	int		*coords_p;
+	int		err;
+	int		coords_p[2] = {0};
 
-	coords_p = find_p_coords(map);
-	if (flood_fill_loop(map, coords_p, 'C')
-		|| flood_fill_loop(map, coords_p, 'E'))
-	{
-		free(coords_p);
-		return (1);
-	}
-	free(coords_p);
+	find_p_coords(map, coords_p);
+	err = flood_fill_loop(map, coords_p, 'C');
+	if (err)
+		return (err);
+	err = flood_fill_loop(map, coords_p, 'E');
+	if (err)
+		return (err);
 	return (0);
 }

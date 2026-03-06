@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 12:08:44 by jchartie          #+#    #+#             */
-/*   Updated: 2026/03/05 17:53:11 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/06 17:52:18 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,25 @@
 
 int	main(int argc, char **argv)
 {
+	int		err;
 	char	**map;
 	
 	map = NULL;
 	if (argc != 2)
-		error(ERR_ARGS, 1);
+		error(ERR_ARGS, NULL);
 	if (map_name(argv[1]))
-		error(ERR_MAP_NAME, 1);
+		error(ERR_MAP_NAME, NULL);
 	map = map_to_tab(argv[1]);
+	if (!map)
+		error(ERR_MALLOC, NULL);
+	if (map_is_rectangular(map))
+		error(ERR_MAP_SHAPE, map);
+	if (check_collectibles(map))
+		error(ERR_TILE, map);
+	if (check_walls(map))
+		error(ERR_WALLS, map);
+	err = check_path(map);
+	if (err)
+		error(err, map);
 	init_frame(map);
 }

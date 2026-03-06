@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:45:35 by admin             #+#    #+#             */
-/*   Updated: 2026/03/06 11:07:47 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/06 17:51:43 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,23 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <mlx.h>
+# include <errno.h>
 # include "libft.h"
 # include "ft_printf.h"
 # include "get_next_line.h"
 
 # define TILE_SIZE 64
 
-# define ERR_ARGS "Incorrect number of arguments"
-# define ERR_MAP_NAME "Invalid file name for .ber map"
+# define ERR_ARGS 0
+# define ERR_MAP_NAME 1
+# define ERR_MAP_SHAPE 2
+# define ERR_MAP_EMPTY 3
+# define ERR_MALLOC 4
+# define ERR_DUPS 5
+# define ERR_TILE 6
+# define ERR_WALLS 7
+# define ERR_PATH 8
+# define ERR_FILE 9
 
 # ifdef __APPLE__
 #  define KEY_ESC 53
@@ -57,7 +66,7 @@ typedef struct s_game
 }	t_game;
 
 
-void	error(char *msg, int exit_code);
+void	error(int error_code, char **map);
 void	free_tab(char **tab);
 int		map_name(char *map);
 char	**map_to_tab(char *map_name);

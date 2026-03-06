@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:44:49 by admin             #+#    #+#             */
-/*   Updated: 2026/03/03 12:12:03 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/06 17:10:43 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	map_name(char *map)
 	return (0);
 }
 
-static char	*extract_one_line_map(int fd)
+static char	*extract_one_line_map(int fd, int *err)
 {
 	char	*old_line;
 	char	*new_line;
@@ -35,7 +35,7 @@ static char	*extract_one_line_map(int fd)
 
 	new_line = get_next_line(fd);
 	if (!new_line)
-		return (NULL);
+		return (*err = ERR_MAP_EMPTY, NULL);
 	temp = "Init";
 	while (temp)
 	{
@@ -46,6 +46,8 @@ static char	*extract_one_line_map(int fd)
 		new_line = ft_strjoin(old_line, temp);
 		free(temp);
 		free(old_line);
+		if (!new_line)
+			return (*err = ERR_MALLOC, NULL);
 	}
 	return (new_line);
 }
@@ -53,13 +55,20 @@ static char	*extract_one_line_map(int fd)
 char	**map_to_tab(char *map_name)
 {
 	int		fd;
+	int		err;
 	char	*line;
 	char	**map;
 
+	err = -1;
 	fd = open(map_name, O_RDONLY);
 	if (fd == -1)
-		return (NULL);
-	line = extract_one_line_map(fd);
+		error(ERR_FILE);
+	line = extract_one_line_map(fd, &err);
+	if (!line)
+	{
+		close(fd);
+		error(err);		
+	}
 	map = ft_split(line, '\n');
 	free(line);
 	close(fd);
