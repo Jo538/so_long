@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 10:18:23 by admin             #+#    #+#             */
-/*   Updated: 2026/03/06 17:48:32 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/09 11:08:30 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	**copy_map(char **map)
 }
 
 #ifdef TESTING
-void	find_p_coords(char **map)
+void	find_p_coords(char **map, int *coords)
 #else
 void	find_p_coords(char **map, int *coords)
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_runner.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:41:11 by admin             #+#    #+#             */
-/*   Updated: 2026/03/05 18:42:10 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/09 11:26:45 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void test_check_path(void);
 void test_get_window_size(void);
 
 // static functions
-int	*find_p_coords(char **map);
+int	*find_p_coords(char **map, int *coords);
 char **copy_map(char **map);
 void flood_fill(char **map, int row, int col, char sprite);
 int	scan_flood_fill_output(char **map, char sprite);

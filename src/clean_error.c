@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:41:21 by admin             #+#    #+#             */
-/*   Updated: 2026/03/06 17:51:19 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/09 10:37:42 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	error(int error_code, char **map)
 		"Path to exit is not valid",
 		"Could not open map file"
 	};
+
 	if (map)
 		free_tab(map);
 	ft_printf("Error\n%s", msg[error_code]);

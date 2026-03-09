@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 14:44:36 by admin             #+#    #+#             */
-/*   Updated: 2026/03/04 10:19:03 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/09 11:25:57 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_walls(char **map)
 	last_row = 0;
 	len = ft_strlen(map[0]);
 	while (map[last_row])
-		last_row++;	
+		last_row++;
 	i = 0;
 	while (i < len)
 	{

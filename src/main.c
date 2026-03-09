@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 12:08:44 by jchartie          #+#    #+#             */
-/*   Updated: 2026/03/06 17:52:18 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/09 10:36:11 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char **argv)
 {
 	int		err;
 	char	**map;
-	
+
 	map = NULL;
 	if (argc != 2)
 		error(ERR_ARGS, NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:44:49 by admin             #+#    #+#             */
-/*   Updated: 2026/03/06 17:59:41 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/09 11:20:57 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,19 @@
 
 int	map_name(char *map)
 {
-	int	len;
+	int		start;
+	int		len;
+	char	*ptr;
 
 	if (!map || !map[0])
 		return (1);
+	ptr = ft_strrchr(map, '/');
+	if (!ptr)
+		start = 0;
+	else
+		start = ptr - map + 1;
 	len = ft_strlen(map);
-	if (len <= 4)
+	if (len - start <= 4)
 		return (1);
 	len = len - 4;
 	if (!map[len] || ft_strncmp(map + len, ".ber", 4) != 0)
@@ -67,7 +74,7 @@ char	**map_to_tab(char *map_name)
 	if (!line)
 	{
 		close(fd);
-		error(err, NULL);		
+		error(err, NULL);
 	}
 	map = ft_split(line, '\n');
 	free(line);

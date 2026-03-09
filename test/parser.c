@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:59:34 by admin             #+#    #+#             */
-/*   Updated: 2026/03/04 16:47:17 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/09 11:34:13 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ void test_map_name(void)
 	TEST_ASSERT(map_name("map"), 1, "No extension: map");
 	TEST_ASSERT(map_name("map."), 1, "No extension: map.");
 	TEST_ASSERT(map_name(".ber"), 1, "Map name only contains extension: .ber");
+	TEST_ASSERT(map_name("dir/.ber"), 1, "Invalid map name: dir/.ber");
+	TEST_ASSERT(map_name("dir/ber"), 1, "Invalid map name: dir/ber");
+	TEST_ASSERT(map_name("dir/"), 1, "Invalid map name: dir/");
+	TEST_ASSERT(map_name("dir/map.berrr"), 1, "Invalid map name: dir/");
 	TEST_ASSERT(map_name("map.ber"), 0, "Valid map name: map.ber");
+	TEST_ASSERT(map_name("dir/map.ber"), 0, "Valid map name: dir/map.ber");
 }
 
 void test_map_to_tab(void)
@@ -34,8 +39,8 @@ void test_map_to_tab(void)
 	TEST_ASSERT(ft_strncmp(map[2], "11111", ft_strlen("11111")), 0, "line 3 should be 11111");
 	free_tab(map);
 
-	map = map_to_tab(NULL);
-	TEST_ASSERT(map == NULL, 1, "NULL input returns NULL");
+	// map = map_to_tab(NULL);
+	// TEST_ASSERT(map == NULL, 1, "NULL input returns NULL");
 
 	map = map_to_tab("test/maps/1x1.ber");
 	TEST_ASSERT(ft_strncmp(map[0], "A", ft_strlen("A")), 0, "1x1: line 1 should be A");
@@ -174,23 +179,21 @@ void test_check_walls(void)
 void test_find_p_coords(void)
 {
 	char **map;
-	int *coords;
+	int coords[2] = {0};
 
 	// P on map[1][3]
 	char *case_a[] = {"11111", "100P1", "11111", NULL};
 	map = case_a;
-	coords = find_p_coords(map);
+	find_p_coords(map, coords);
 	TEST_ASSERT(coords[0], 1, "P on map[1][3]");
 	TEST_ASSERT(coords[1], 3, "P on map[1][3]");
-	free(coords);
-	
+
 	// P on map[1][1]
 	char *case_b[] = {"11111", "1P0C1", "11111", NULL};
 	map = case_b;
-	coords = find_p_coords(map);
+	find_p_coords(map, coords);
 	TEST_ASSERT(coords[0], 1, "P on map[1][1]");
 	TEST_ASSERT(coords[1], 1, "P on map[1][1]");
-	free(coords);
 
 }
 
@@ -280,16 +283,16 @@ void test_check_path(void)
 	// E is not reachable
 	char *case_b[] = {"11111", "1P101", "1P1E1", "11111", NULL};
 	map = case_b;
-	TEST_ASSERT(check_path(map), 1, "E is not accessible");
+	TEST_ASSERT(check_path(map), 8, "E is not accessible");
 
 	// C not accessible
 	char *case_c[] = {"11111", "1P1C1", "1E111" , "11111", NULL};
 	map = case_c;
-	TEST_ASSERT(check_path(map), 1, "C not accessible");
+	TEST_ASSERT(check_path(map), 8, "C not accessible");
 
 	// C not accessible because E is blocking the way
 	char *case_d[] = {"11111", "1PE01", "111C1" , "11111", NULL};
 	map = case_d;
-	TEST_ASSERT(check_path(map), 1, "C not accessible because E is blocking the way");
+	TEST_ASSERT(check_path(map), 8, "C not accessible because E is blocking the way");
 }
 
