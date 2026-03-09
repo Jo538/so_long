@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:45:35 by admin             #+#    #+#             */
-/*   Updated: 2026/03/06 17:51:43 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/09 15:46:45 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_game
 	int		width;
 	int		height;
 	int		moves;
+	int		collectibles;
 	int		coords_p[2];
 	char	**map;
 	void	*mlx;

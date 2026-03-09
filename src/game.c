@@ -3,14 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 17:00:04 by admin             #+#    #+#             */
-/*   Updated: 2026/03/06 18:02:52 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/09 16:08:45 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+static void	count_collectibles(char **map, t_game *game)
+{
+	int	i;
+	int	j;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'C')
+				count++;
+			j++;
+		}
+		i++;
+	}
+	game->collectibles = count;
+	printf("number of collectibles: %d\n", count);
+}
 
 #ifdef TESTING
 void	get_window_size(char **map, t_game *game)
@@ -30,17 +53,19 @@ static void	get_window_size(char **map, t_game *game)
 
 static void	load_tiles(t_game *game)
 {
-	int		w;
-	int		h;
-	
-	game->grass = mlx_xpm_file_to_image(game->mlx, "textures/grass.xpm", &w, &h);
+	int	w;
+	int	h;
+
+	game->grass = mlx_xpm_file_to_image(game->mlx, "textures/grass.xpm", &w,
+			&h);
 	game->tree = mlx_xpm_file_to_image(game->mlx, "textures/tree.xpm", &w, &h);
 	game->dog = mlx_xpm_file_to_image(game->mlx, "textures/dog.xpm", &w, &h);
-	game->bread = mlx_xpm_file_to_image(game->mlx, "textures/bread.xpm", &w, &h);
+	game->bread = mlx_xpm_file_to_image(game->mlx, "textures/bread.xpm", &w,
+			&h);
 	game->exit = mlx_xpm_file_to_image(game->mlx, "textures/exit.xpm", &w, &h);
 }
 
-static void *get_tile_image(int i, int j, t_game *game)
+static void	*get_tile_image(int i, int j, t_game *game)
 {
 	if (game->map[i][j] == 'P')
 	{
@@ -72,7 +97,8 @@ static void	create_initial_frame(t_game *game)
 		while (j < game->width)
 		{
 			tile = get_tile_image(i, j, game);
-			mlx_put_image_to_window(game->mlx, game->window, tile, j*TILE_SIZE, i*TILE_SIZE);
+			mlx_put_image_to_window(game->mlx, game->window, tile, j
+				* TILE_SIZE, i * TILE_SIZE);
 			j++;
 		}
 		i++;
@@ -81,19 +107,20 @@ static void	create_initial_frame(t_game *game)
 
 void	init_frame(char **map)
 {
-	t_game	game;
+	t_game game;
 
 	get_window_size(map, &game);
 
 	game.moves = 0;
 	game.mlx = mlx_init();
-	game.window = mlx_new_window(game.mlx, game.width*TILE_SIZE, game.height*TILE_SIZE, "Pollux's Game");
-
+	game.window = mlx_new_window(game.mlx, game.width * TILE_SIZE, game.height
+			* TILE_SIZE, "Pollux's Game");
+	count_collectibles(map, &game);
 	load_tiles(&game);
 	create_initial_frame(&game);
-	
+
 	mlx_key_hook(game.window, on_keypress, &game);
-	mlx_hook(game.window, 17, 1L<<17, on_close, &game);
-	
+	mlx_hook(game.window, 17, 1L << 17, on_close, &game);
+
 	mlx_loop(game.mlx);
 }

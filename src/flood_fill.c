@@ -6,7 +6,7 @@
 /*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 10:18:23 by admin             #+#    #+#             */
-/*   Updated: 2026/03/09 11:08:30 by jchartie         ###   ########.fr       */
+/*   Updated: 2026/03/09 12:12:19 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static int	scan_flood_fill_output(char **map, char sprite)
 {
 	int	row;
 	int	col;
-	
+
 	row = 1;
 	while (map[row])
 	{
