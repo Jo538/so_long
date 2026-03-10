@@ -6,7 +6,7 @@
 /*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:44:49 by admin             #+#    #+#             */
-/*   Updated: 2026/03/10 10:48:24 by jchartie         ###   ########.fr       */
+/*   Updated: 2026/03/10 14:40:33 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static char	*extract_one_line_map(int fd, int *err)
 	char	*old_line;
 	char	*new_line;
 	char	*temp;
+	int		cols;
 
 	new_line = get_next_line(fd);
 	if (!new_line)
@@ -76,6 +77,12 @@ char	**map_to_tab(char *map_name)
 		close(fd);
 		error(err, NULL);
 	}
+	if (ft_strnstr(line, "\n\n", ft_strlen(line)))
+	{
+		close(fd);
+		free(line);
+		error(ERR_MAP_SHAPE, NULL);
+	}
 	map = ft_split(line, '\n');
 	free(line);
 	close(fd);
@@ -90,11 +97,9 @@ int	map_is_rectangular(char **map)
 
 	length = ft_strlen(map[0]);
 	width = 0;
+	i = 1;
 	while (map[width])
 		width++;
-	if (length == width)
-		return (1);
-	i = 1;
 	while (map[i])
 	{
 		if (ft_strlen(map[i]) != length)
@@ -106,9 +111,9 @@ int	map_is_rectangular(char **map)
 
 int	check_collectibles(char **map)
 {
-	int	i;
-	int	j;
-	int	count[3] = {0};
+	int			i;
+	int			j;
+	static int	count[3] = {0};
 
 	i = 0;
 	if (check_incorrect_collectibles(map))

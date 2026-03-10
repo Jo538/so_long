@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flag_x.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:30:27 by jchartie          #+#    #+#             */
-/*   Updated: 2026/02/11 21:29:06 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/10 11:11:22 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	printf_x(unsigned int n, char c)
 		count += printf_x(n / 16, c);
 	i = n % 16;
 	if (c == 'X')
-		write(2, &base2[i], 1);
+		write(1, &base2[i], 1);
 	else
-		write(2, &base1[i], 1);
+		write(1, &base1[i], 1);
 	return (count + 1);
 }
 /*

@@ -6,7 +6,7 @@
 /*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 10:59:58 by jchartie          #+#    #+#             */
-/*   Updated: 2026/02/24 11:58:51 by jchartie         ###   ########.fr       */
+/*   Updated: 2026/03/10 11:43:33 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,30 +64,6 @@ static int	split_words(char **result, char const *s, char c, int word)
 	return (1);
 }
 
-static char	**only_spaces(char const *s)
-{
-	int		i;
-	int		len;
-	char	**result;
-
-	i = 0;
-	len = ft_strlen(s);
-	while (s[i])
-	{
-		if (s[i] != ' ')
-			return (NULL);
-		i++;
-	}
-	result = ft_calloc(2, sizeof(char *));
-	if (!result)
-		return (NULL);
-	*result = ft_calloc(len + 1, sizeof(char));
-	if (!*result)
-		return (NULL);
-	ft_strlcpy(*result, s, len + 1);
-	return (result);
-}
-
 /**
  * @brief Allocates memory (using malloc(3)) and returns an
 array of strings obtained by splitting ’s’ using
@@ -105,9 +81,6 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	result = only_spaces(s);
-	if (result)
-		return (result);
 	result = malloc(sizeof(char *) * (numwords(s, c) + 1));
 	if (!result)
 		return (NULL);

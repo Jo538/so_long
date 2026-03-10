@@ -6,7 +6,7 @@
 /*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 10:18:23 by admin             #+#    #+#             */
-/*   Updated: 2026/03/10 10:21:28 by jchartie         ###   ########.fr       */
+/*   Updated: 2026/03/10 14:36:11 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ char	**copy_map(char **map)
 static char	**copy_map(char **map)
 #endif
 {
-	int		rows;
-	int		i;
-	char	**tmp_map;
-	
+	int rows;
+	int i;
+	char **tmp_map;
+
 	rows = 0;
 	while (map[rows])
 		rows++;
@@ -46,8 +46,8 @@ void	find_p_coords(char **map, int *coords)
 void	find_p_coords(char **map, int *coords)
 #endif
 {
-	int	row;
-	int	col;
+	int row;
+	int col;
 
 	row = 1;
 	while (map[row])
@@ -71,10 +71,12 @@ void	flood_fill(char **map, int row, int col, char sprite)
 #else
 static void	flood_fill(char **map, int row, int col, char sprite)
 #endif
+
 {
 	if (sprite == 'C')
 	{
-		if (map[row][col] == 'F' || map[row][col] == '1' || map[row][col] == 'E')
+		if (map[row][col] == 'F' || map[row][col] == '1'
+			|| map[row][col] == 'E')
 			return ;
 	}
 	if (sprite == 'E')
@@ -112,8 +114,8 @@ static int	flood_fill_loop(char **map, int *coords, char sprite)
 
 int	check_path(char **map)
 {
-	int		err;
-	int		coords_p[2] = {0};
+	int	err;
+	int	coords_p[2] = {0};
 
 	find_p_coords(map, coords_p);
 	err = flood_fill_loop(map, coords_p, 'C');

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flag_p.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 16:12:32 by jchartie          #+#    #+#             */
-/*   Updated: 2026/02/11 21:28:47 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/10 11:11:05 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ int	printf_p(unsigned long int n)
 	base = "0123456789abcdef";
 	if (n == 0)
 	{
-		write(2, "(nil)", 5);
+		write(1, "(nil)", 5);
 		return (5);
 	}
 	if (n >= 16)
 		count += printf_p(n / 16);
 	i = n % 16;
-	write(2, &base[i], 1);
+	write(1, &base[i], 1);
 	return (count + 1);
 }
 /*

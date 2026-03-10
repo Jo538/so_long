@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flag_u.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 12:02:12 by jchartie          #+#    #+#             */
-/*   Updated: 2026/02/11 21:28:58 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/10 11:11:15 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	printf_u(unsigned int n)
 	if (n >= 10)
 		count += printf_u(n / 10);
 	c = (char)(n % 10) + '0';
-	write(2, &c, 1);
+	write(1, &c, 1);
 	return (count + 1);
 }
 /*

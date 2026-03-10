@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flag_s.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 16:06:41 by jchartie          #+#    #+#             */
-/*   Updated: 2026/02/11 21:28:54 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/10 11:11:11 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ int	printf_s(char *s)
 	count = 0;
 	if (!s)
 	{
-		write(2, "(null)", 6);
+		write(1, "(null)", 6);
 		return (6);
 	}
 	while (s[i])
 	{
-		write(2, &s[i], 1);
+		write(1, &s[i], 1);
 		i++;
 		count++;
 	}

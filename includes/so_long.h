@@ -6,7 +6,7 @@
 /*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:45:35 by admin             #+#    #+#             */
-/*   Updated: 2026/03/10 10:47:21 by jchartie         ###   ########.fr       */
+/*   Updated: 2026/03/10 14:34:09 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define ERR_WALLS 7
 # define ERR_PATH 8
 # define ERR_FILE 9
+# define ERR_MLX 10
+# define ERR_MAP_SIZE 11
 
 # ifdef __APPLE__
 #  define KEY_ESC 53

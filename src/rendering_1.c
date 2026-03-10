@@ -6,7 +6,7 @@
 /*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 17:00:04 by admin             #+#    #+#             */
-/*   Updated: 2026/03/10 10:18:41 by jchartie         ###   ########.fr       */
+/*   Updated: 2026/03/10 14:37:03 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ void	get_window_size(char **map, t_game *game)
 #else
 static void	get_window_size(char **map, t_game *game)
 #endif
+
 {
-	int	height;
+	int height;
 
 	height = 0;
 	game->map = map;
@@ -84,20 +85,19 @@ static void	create_initial_frame(t_game *game)
 
 void	init_frame(char **map)
 {
-	t_game game;
+	t_game	game;
 
 	get_window_size(map, &game);
-
 	game.moves = 0;
 	game.mlx = mlx_init();
+	if (!game.mlx)
+		error(ERR_MLX, map);
 	game.window = mlx_new_window(game.mlx, game.width * TILE_SIZE, game.height
 			* TILE_SIZE, "Pollux's Game");
 	count_collectibles(map, &game);
 	load_tiles(&game);
 	create_initial_frame(&game);
-
 	mlx_key_hook(game.window, on_keypress, &game);
 	mlx_hook(game.window, 17, 1L << 17, on_close, &game);
-
 	mlx_loop(game.mlx);
 }

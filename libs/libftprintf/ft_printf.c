@@ -6,7 +6,7 @@
 /*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 12:41:34 by admin             #+#    #+#             */
-/*   Updated: 2026/02/18 11:40:10 by jchartie         ###   ########.fr       */
+/*   Updated: 2026/03/10 11:11:41 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	handler(char c, va_list args)
 		ptr = va_arg(args, unsigned long int);
 		if (ptr != 0)
 		{
-			write(2, "0x", 2);
+			write(1, "0x", 2);
 			count += 2;
 		}
 		count += printf_p(ptr);
@@ -71,7 +71,7 @@ static int	traverse(const char *s, va_list args)
 	{
 		if (s[i] == '%' && s[i + 1] == '%')
 		{
-			write(2, &s[i], 1);
+			write(1, &s[i], 1);
 			i += 2;
 			count++;
 			continue ;
@@ -82,7 +82,7 @@ static int	traverse(const char *s, va_list args)
 			i += 2;
 			continue ;
 		}
-		write(2, &s[i], 1);
+		write(1, &s[i], 1);
 		i++;
 		count++;
 	}
