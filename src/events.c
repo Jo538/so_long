@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/06 09:36:56 by admin             #+#    #+#             */
-/*   Updated: 2026/03/09 16:21:03 by jchartie         ###   ########.fr       */
+/*   Created: 2026/03/10 10:09:55 by jchartie          #+#    #+#             */
+/*   Updated: 2026/03/10 10:10:55 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	move_up(t_game *game)
+void	move_up(t_game *game)
 {
 	int	x;
 	int	y;
@@ -34,7 +34,7 @@ static void	move_up(t_game *game)
 	ft_printf("Moves: %d\n", game->moves);
 }
 
-static void	move_down(t_game *game)
+void	move_down(t_game *game)
 {
 	int	x;
 	int	y;
@@ -56,7 +56,7 @@ static void	move_down(t_game *game)
 	ft_printf("Moves: %d\n", game->moves);
 }
 
-static void	move_left(t_game *game)
+void	move_left(t_game *game)
 {
 	int	x;
 	int	y;
@@ -78,7 +78,7 @@ static void	move_left(t_game *game)
 	ft_printf("Moves: %d\n", game->moves);
 }
 
-static void	move_right(t_game *game)
+void	move_right(t_game *game)
 {
 	int	x;
 	int	y;
@@ -98,44 +98,4 @@ static void	move_right(t_game *game)
 	game->coords_p[1]++; 		
 	game->moves++;
 	ft_printf("Moves: %d\n", game->moves);
-}
-
-int	on_keypress(int keycode, void *param)
-{
-	t_game	*game;
-
-	game = (t_game *)param;
-
-	if (keycode == KEY_ESC)
-		on_close(param);
-	if (keycode == KEY_W)
-		move_up(game);
-	if (keycode == KEY_A)
-		move_down(game);
-	if (keycode == KEY_S)
-		move_left(game);
-	if (keycode == KEY_D)
-		move_right(game);
-	printf("collectibles: %d\n", game->collectibles);
-	return (0);
-}
-
-int	on_close(void *param)
-{
-	t_game	*game;
-
-	game = (t_game *)param;
-
-	free_tab(game->map);
-	mlx_destroy_image(game->mlx, game->grass);
-	mlx_destroy_image(game->mlx, game->dog);
-	mlx_destroy_image(game->mlx, game->bread);
-	mlx_destroy_image(game->mlx, game->tree);
-	mlx_destroy_image(game->mlx, game->exit);
-	mlx_destroy_window(game->mlx, game->window);
-	#ifndef __APPLE__
-		mlx_destroy_display(game->mlx);
-	#endif
-	free(game->mlx);
-	exit(EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:45:35 by admin             #+#    #+#             */
-/*   Updated: 2026/03/09 15:46:45 by jchartie         ###   ########.fr       */
+/*   Updated: 2026/03/10 10:31:34 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,33 @@ typedef struct s_game
 	void	*exit;
 }	t_game;
 
-
-void	error(int error_code, char **map);
-void	free_tab(char **tab);
+/* Parsing functions on map */
 int		map_name(char *map);
 char	**map_to_tab(char *map_name);
 int		map_is_rectangular(char **map);
 int		check_collectibles(char **map);
 int		check_walls(char **map);
+
+/* Flood Fill to check C and E reachable */
 int		check_path(char **map);
+int		scan_flood_fill_output(char **map, char sprite);
+
+/* Game display */
 void	init_frame(char **map);
+void	count_collectibles(char **map, t_game *game);
+
+/* Hooks */
 int		on_keypress(int keycode, void *game);
 int		on_close(void *game);
+
+/* Events */
+void	move_up(t_game *game);
+void	move_down(t_game *game);
+void	move_left(t_game *game);
+void	move_right(t_game *game);
+
+/* Errors and free functions */
+void	error(int error_code, char **map);
+void	free_tab(char **tab);
 
 #endif

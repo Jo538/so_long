@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: admin <admin@student.42.fr>                +#+  +:+       +#+         #
+#    By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/10 11:15:08 by jchartie          #+#    #+#              #
-#    Updated: 2026/03/06 09:38:36 by admin            ###   ########.fr        #
+#    Updated: 2026/03/10 10:27:17 by jchartie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,14 @@ LIBFT_DIR = libs/libft
 PRINTF_DIR = libs/libftprintf
 
 # Sources and Objects
-MAIN_SOURCES = main.c	parser_1.c	clean_error.c	parser_2.c	flood_fill.c	game.c	\
-				events.c
+MAIN_SOURCES = main.c	parser_1.c	parser_2.c	clean_error.c	events.c	\
+				flood_fill_1.c	flood_fill_2.c	hooks.c	rendering_1.c	\
+				rendering_2.c
 MAIN_OBJECTS = $(addprefix $(OBJ_DIR), $(MAIN_SOURCES:.c=.o))
 TEST_SOURCES = $(TEST_DIR)/main.c	$(TEST_DIR)/parser.c	$(SRC_DIR)parser_1.c	\
-				$(SRC_DIR)clean_error.c	$(SRC_DIR)parser_2.c	$(SRC_DIR)flood_fill.c	\
-				$(SRC_DIR)game.c	$(TEST_DIR)/game.c	$(SRC_DIR)events.c
+				$(SRC_DIR)parser_2.c	$(SRC_DIR)clean_error.c	$(SRC_DIR)flood_fill_1.c	\
+				$(SRC_DIR)flood_fill_2.c	$(SRC_DIR)hooks.c	$(TEST_DIR)/game.c	\
+				$(SRC_DIR)events.c	$(SRC_DIR)rendering_1.c	$(SRC_DIR)rendering_2.c
 GNL_SOURCES = get_next_line_utils.c	get_next_line.c
 GNL_OBJ = $(addprefix $(GNL_DIR)/, $(GNL_SOURCES:.c=.o))
 LIB_OBJ = $(LIBFT_DIR)/libft.a $(PRINTF_DIR)/libftprintf.a	$(MLX_DIR)/libmlx.a

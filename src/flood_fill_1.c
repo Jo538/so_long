@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flood_fill.c                                       :+:      :+:    :+:   */
+/*   flood_fill_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 10:18:23 by admin             #+#    #+#             */
-/*   Updated: 2026/03/09 12:12:19 by jchartie         ###   ########.fr       */
+/*   Updated: 2026/03/10 10:21:28 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,30 +87,6 @@ static void	flood_fill(char **map, int row, int col, char sprite)
 	flood_fill(map, row - 1, col, sprite);
 	flood_fill(map, row, col + 1, sprite);
 	flood_fill(map, row, col - 1, sprite);
-}
-
-#ifdef TESTING
-int	scan_flood_fill_output(char **map, char sprite)
-#else
-static int	scan_flood_fill_output(char **map, char sprite)
-#endif
-{
-	int	row;
-	int	col;
-
-	row = 1;
-	while (map[row])
-	{
-		col = 1;
-		while (map[row][col])
-		{
-			if (map[row][col] == sprite)
-				return (1);
-			col++;
-		}
-		row++;
-	}
-	return (0);
 }
 
 static int	flood_fill_loop(char **map, int *coords, char sprite)
