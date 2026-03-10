@@ -6,20 +6,15 @@
 /*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 17:00:04 by admin             #+#    #+#             */
-/*   Updated: 2026/03/10 14:37:03 by jchartie         ###   ########.fr       */
+/*   Updated: 2026/03/10 14:45:29 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-#ifdef TESTING
-void	get_window_size(char **map, t_game *game)
-#else
 static void	get_window_size(char **map, t_game *game)
-#endif
-
 {
-	int height;
+	int	height;
 
 	height = 0;
 	game->map = map;

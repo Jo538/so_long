@@ -6,7 +6,7 @@
 /*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 09:36:56 by admin             #+#    #+#             */
-/*   Updated: 2026/03/10 14:36:33 by jchartie         ###   ########.fr       */
+/*   Updated: 2026/03/10 14:41:53 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ int	on_close(void *param)
 	mlx_destroy_image(game->mlx, game->tree);
 	mlx_destroy_image(game->mlx, game->exit);
 	mlx_destroy_window(game->mlx, game->window);
-#ifndef __APPLE__
 	mlx_destroy_display(game->mlx);
-#endif
 	free(game->mlx);
 	exit(EXIT_SUCCESS);
 }

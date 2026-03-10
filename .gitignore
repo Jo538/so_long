@@ -1,2 +1,6 @@
 libs/mlx_linux/
 libs/mlx_macos/
+CLAUDE.md
+test/*
+docs/*
+maps_
