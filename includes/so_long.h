@@ -6,7 +6,7 @@
 /*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:45:35 by admin             #+#    #+#             */
-/*   Updated: 2026/03/10 10:31:34 by jchartie         ###   ########.fr       */
+/*   Updated: 2026/03/10 10:47:21 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int		map_name(char *map);
 char	**map_to_tab(char *map_name);
 int		map_is_rectangular(char **map);
 int		check_collectibles(char **map);
+int		check_incorrect_collectibles(char **map);
 int		check_walls(char **map);
 
 /* Flood Fill to check C and E reachable */

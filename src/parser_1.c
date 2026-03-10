@@ -6,7 +6,7 @@
 /*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:44:49 by admin             #+#    #+#             */
-/*   Updated: 2026/03/09 11:20:57 by jchartie         ###   ########.fr       */
+/*   Updated: 2026/03/10 10:48:24 by jchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ int	check_collectibles(char **map)
 	int	count[3] = {0};
 
 	i = 0;
+	if (check_incorrect_collectibles(map))
+		return (1);
 	while (map[i])
 	{
 		j = 0;
