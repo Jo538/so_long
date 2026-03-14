@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:45:35 by admin             #+#    #+#             */
-/*   Updated: 2026/03/10 14:44:00 by jchartie         ###   ########.fr       */
+/*   Updated: 2026/03/14 15:34:41 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include "get_next_line.h"
 
 # define TILE_SIZE 64
+# define MAX_ROWS 16
+# define MAX_COLS 30
 
 # define ERR_ARGS 0
 # define ERR_MAP_NAME 1
@@ -36,6 +38,7 @@
 # define ERR_FILE 9
 # define ERR_MLX 10
 # define ERR_MAP_SIZE 11
+# define ERR_TILE_ABSENT 12
 
 # define KEY_ESC 65307
 # define KEY_W 119
@@ -87,7 +90,7 @@ void	move_left(t_game *game);
 void	move_right(t_game *game);
 
 /* Errors and free functions */
-void	error(int error_code, char **map);
+void	error(int error_code, char **map, t_game *game);
 void	free_tab(char **tab);
 
 #endif

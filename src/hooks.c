@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 09:36:56 by admin             #+#    #+#             */
-/*   Updated: 2026/03/10 14:41:53 by jchartie         ###   ########.fr       */
+/*   Updated: 2026/03/14 15:09:31 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,20 @@ int	on_close(void *param)
 	t_game	*game;
 
 	game = (t_game *)param;
-	free_tab(game->map);
-	mlx_destroy_image(game->mlx, game->grass);
-	mlx_destroy_image(game->mlx, game->dog);
-	mlx_destroy_image(game->mlx, game->bread);
-	mlx_destroy_image(game->mlx, game->tree);
-	mlx_destroy_image(game->mlx, game->exit);
-	mlx_destroy_window(game->mlx, game->window);
+	if (game->map)
+		free_tab(game->map);
+	if (game->grass)
+		mlx_destroy_image(game->mlx, game->grass);
+	if (game->dog)
+		mlx_destroy_image(game->mlx, game->dog);
+	if (game->bread)
+		mlx_destroy_image(game->mlx, game->bread);
+	if (game->tree)
+		mlx_destroy_image(game->mlx, game->tree);
+	if (game->exit)
+		mlx_destroy_image(game->mlx, game->exit);
+	if (game->window)
+		mlx_destroy_window(game->mlx, game->window);
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
 	exit(EXIT_SUCCESS);

@@ -3,18 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+         #
+#    By: admin <admin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/10 11:15:08 by jchartie          #+#    #+#              #
-#    Updated: 2026/03/10 10:27:17 by jchartie         ###   ########.fr        #
+#    Updated: 2026/03/14 13:48:27 by admin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compiler
 CC = cc
-CFLAGS = -g3 -O0
+CFLAGS = -Wall -Wextra -Werror
 NAME = so_long
-TEST_NAME = test_so_long
 
 # Directories and Paths
 SRC_DIR = src/
@@ -29,10 +28,6 @@ MAIN_SOURCES = main.c	parser_1.c	parser_2.c	clean_error.c	events.c	\
 				flood_fill_1.c	flood_fill_2.c	hooks.c	rendering_1.c	\
 				rendering_2.c
 MAIN_OBJECTS = $(addprefix $(OBJ_DIR), $(MAIN_SOURCES:.c=.o))
-TEST_SOURCES = $(TEST_DIR)/main.c	$(TEST_DIR)/parser.c	$(SRC_DIR)parser_1.c	\
-				$(SRC_DIR)parser_2.c	$(SRC_DIR)clean_error.c	$(SRC_DIR)flood_fill_1.c	\
-				$(SRC_DIR)flood_fill_2.c	$(SRC_DIR)hooks.c	$(TEST_DIR)/game.c	\
-				$(SRC_DIR)events.c	$(SRC_DIR)rendering_1.c	$(SRC_DIR)rendering_2.c
 GNL_SOURCES = get_next_line_utils.c	get_next_line.c
 GNL_OBJ = $(addprefix $(GNL_DIR)/, $(GNL_SOURCES:.c=.o))
 LIB_OBJ = $(LIBFT_DIR)/libft.a $(PRINTF_DIR)/libftprintf.a	$(MLX_DIR)/libmlx.a
@@ -48,7 +43,6 @@ else
 	MLX_FLAGS = -L/usr/lib -lXext -lX11 -lm -lz
 endif
 INCLUDES += -Iincludes -I$(LIBFT_DIR) -I$(PRINTF_DIR) -I$(GNL_DIR)
-TEST_FLAG = TESTING
 
 # Default rule
 all: $(NAME)
@@ -73,7 +67,7 @@ $(OBJ_DIR):
 	@mkdir $(OBJ_DIR)
 
 # Phony targets declaration
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re
 
 # Clean project's object files
 clean:
@@ -86,17 +80,8 @@ fclean: clean
 	$(MAKE) -C $(PRINTF_DIR) fclean
 	$(MAKE) -C $(MLX_DIR) clean
 	rm -f $(GNL_OBJ)
-	rm -rf $(TEST_NAME).dSYM
-	rm -f $(TEST_NAME)
 	rm -f $(NAME)
 
 # Recompile all files
 re: fclean
 	$(MAKE) all
-
-# Run tests
-test: $(LIB_OBJ) $(GNL_OBJ)
-	@$(CC) -D$(TEST_FLAG) $(CFLAGS) $(INCLUDES) $(MLX_FLAGS) $(TEST_SOURCES) $(GNL_OBJ) $(LIB_OBJ) -o $(TEST_NAME)
-	@./$(TEST_NAME)
-	
-

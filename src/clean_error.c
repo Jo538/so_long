@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:41:21 by admin             #+#    #+#             */
-/*   Updated: 2026/03/10 14:38:24 by jchartie         ###   ########.fr       */
+/*   Updated: 2026/03/14 15:27:04 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-void	error(int error_code, char **map)
+void	error(int error_code, char **map, t_game *game)
 {
 	static char	*msg[] = {"Incorrect number of arguments",
 		"Invalid map name. Follow map.ber format",
@@ -33,12 +33,15 @@ void	error(int error_code, char **map)
 		"The map is empty", "Allocation failure", "P or E is duplicated",
 		"P, E or C != 1", "Map not surrounded by walls",
 		"Path to exit is not valid", "Could not open map file",
-		"Minilibx failure", "Map is bigger than screen"};
+		"Minilibx failure", "Map is too big",
+		"Texture file is missing"};
 
-	if (map)
-		free_tab(map);
 	ft_putstr_fd("Error\n", 1);
 	ft_putstr_fd(msg[error_code], 1);
 	ft_putstr_fd("\n", 1);
+	if (game)
+		on_close(game);
+	if (map)
+		free_tab(map);
 	exit(1);
 }

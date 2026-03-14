@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:44:49 by admin             #+#    #+#             */
-/*   Updated: 2026/03/10 14:40:33 by jchartie         ###   ########.fr       */
+/*   Updated: 2026/03/14 16:47:23 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,43 @@ int	map_name(char *map)
 	return (0);
 }
 
+static int	check_map_dimensions(char *line, int *err)
+{
+	int	start;
+	int	end;
+	int	rows;
+
+	start = 0;
+	end = 0;
+	rows = 0;
+	while (line[end])
+	{
+		if (end > 0 && line[end - 1] == '\n' && line[end] == '\n')
+			return (*err = ERR_MAP_SHAPE, 1);
+		if (line[end] == '\n')
+		{
+			if (end - start > MAX_COLS)
+				return (*err = ERR_MAP_SIZE, 1);
+			start = end + 1;
+			rows++;
+		}
+		end++;
+	}
+	rows += (end > start);
+	if (rows > MAX_ROWS || (end - start) > MAX_COLS)
+		return (*err = ERR_MAP_SIZE, 1);
+	return (0);
+}
+
 static char	*extract_one_line_map(int fd, int *err)
 {
-	char	*old_line;
-	char	*new_line;
-	char	*temp;
-	int		cols;
+	char		*old_line;
+	char		*new_line;
+	static char	*temp = "Init";
 
 	new_line = get_next_line(fd);
 	if (!new_line)
 		return (*err = ERR_MAP_EMPTY, NULL);
-	temp = "Init";
 	while (temp)
 	{
 		temp = get_next_line(fd);
@@ -57,6 +83,8 @@ static char	*extract_one_line_map(int fd, int *err)
 		if (!new_line)
 			return (*err = ERR_MALLOC, NULL);
 	}
+	if (check_map_dimensions(new_line, err))
+		return (free(new_line), NULL);
 	return (new_line);
 }
 
@@ -70,18 +98,12 @@ char	**map_to_tab(char *map_name)
 	err = -1;
 	fd = open(map_name, O_RDONLY);
 	if (fd == -1)
-		error(ERR_FILE, NULL);
+		error(ERR_FILE, NULL, NULL);
 	line = extract_one_line_map(fd, &err);
 	if (!line)
 	{
 		close(fd);
-		error(err, NULL);
-	}
-	if (ft_strnstr(line, "\n\n", ft_strlen(line)))
-	{
-		close(fd);
-		free(line);
-		error(ERR_MAP_SHAPE, NULL);
+		error(err, NULL, NULL);
 	}
 	map = ft_split(line, '\n');
 	free(line);
@@ -102,38 +124,9 @@ int	map_is_rectangular(char **map)
 		width++;
 	while (map[i])
 	{
-		if (ft_strlen(map[i]) != length)
+		if ((int)ft_strlen(map[i]) != length)
 			return (1);
 		i++;
 	}
-	return (0);
-}
-
-int	check_collectibles(char **map)
-{
-	int			i;
-	int			j;
-	static int	count[3] = {0};
-
-	i = 0;
-	if (check_incorrect_collectibles(map))
-		return (1);
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == 'P')
-				count[0]++;
-			if (map[i][j] == 'E')
-				count[1]++;
-			if (map[i][j] == 'C')
-				count[2]++;
-			j++;
-		}
-		i++;
-	}
-	if (count[0] != 1 || count[1] != 1 || count[2] < 1)
-		return (1);
 	return (0);
 }
