@@ -1,4 +1,3 @@
-*This project has been created as part of the 42 curriculum by jchartie.*
 
 # so_long
 
@@ -89,7 +88,5 @@ If the map is invalid, the program exits cleanly and prints an error message to 
 
 ### AI usage
 
-Claude Code (claude-sonnet-4-6) was used during this project for the following tasks:
+AI was used during this project for the following tasks:
 - Writing this README.md
-- Helping structure the map validation logic and flood-fill approach
-- Generating the test suite scaffold and suggesting edge cases to cover

@@ -6,7 +6,7 @@
 /*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 09:36:56 by admin             #+#    #+#             */
-/*   Updated: 2026/03/14 15:09:31 by admin            ###   ########.fr       */
+/*   Updated: 2026/03/17 18:03:18 by admin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	on_close(void *param)
 		mlx_destroy_image(game->mlx, game->exit);
 	if (game->window)
 		mlx_destroy_window(game->mlx, game->window);
-	mlx_destroy_display(game->mlx);
+	// mlx_destroy_display(game->mlx);
 	free(game->mlx);
 	exit(EXIT_SUCCESS);
 }
